@@ -1,24 +1,34 @@
+// Object path finder
+
 const obj = {
-    person: {
-      name: 'joe',
-      history: {
-        hometown: 'bratislava',
-        bio: {
-          funFact: 'I like fishing.',
-        },
+  person: {
+    name: "joe",
+    history: {
+      hometown: "bratislava",
+      bio: {
+        funFact: "I like fishing.",
       },
     },
-  };
-  
-  
-  function hash(path) {
-    const keys = path.split('.');
-    
-    return keys.reduce((acc, item) =>
-      (acc === undefined ? acc : acc[item]), this);
-  };
-  
-  // obj.hash('car'); // undefined
-  // obj.hash('person.history.bio'); // { funFact: 'I like fishing.' }
-  // obj.hash('person.history.hometown'); // undefined
-  // obj.hash('person.animal.pet.needNoseAntEater'); // undefined
+  },
+};
+
+const select = (obj, path) => {
+  const list = path.split(".");
+
+  let target = { ...obj };
+
+  for (field of list) {
+    const nextField = target[field];
+
+    if (!nextField) return null;
+
+    target = nextField;
+  }
+
+  return target;
+};
+
+console.log(select(obj, "car")); // null
+console.log(select(obj, "person.history.bio")); // { funFact: 'I like fishing.' }
+console.log(select(obj, "person.history.hometown")); // "bratislava"
+console.log(select(obj, "person.animal.pet.needNoseAntEater")); // null

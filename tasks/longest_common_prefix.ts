@@ -6,7 +6,6 @@ const getLongestString = (arr: string[]) => arr.reduce(
     '',
   );
 
-//TODO: fix alg
 function longestCommonPrefix(strs: string[]): string {
     const chars: string[] = [];
     let currentSubstr = "";
@@ -16,6 +15,7 @@ function longestCommonPrefix(strs: string[]): string {
 
     const steps = strs.join('').split('');
 
+    //TODO: fix alg
     while (steps.length > 0) {
         const verifiableChar = strs[word][char];
 
