@@ -1,28 +1,51 @@
-// Write a function to find the longest common prefix string amongst an array of strings.
-// If there is no common prefix, return an empty string "".
+function findMaxIntersection(strs: string[]): string {
+  if (strs.some((word) => word.length === 0)) return "";
 
-function longestCommonPrefix(strs: string[]): string {
-  //TODO:
-  // 1. init temporary arr of chars []
-  // 2. init point for current ending of sequence 0
-  // 3. iterate from 0 to amount of letters
-  //    3.1. iterate all words and push 2. current pont in 1. temporary arr if
-  //    3.2. if undefined - push and point++
-  // 4. select and return the most long word in temporary arr
-  // 5. optimize
+  let maxStr = "";
 
-  return "";
+  const substrings = strs.reduce((acc: string[], word: string): string[] => {
+    const subsrts: string[] = [];
+
+    let start = 0;
+    let end = 1;
+
+    while (start < word.length) {
+      subsrts.push(word.slice(start, end));
+
+      end = end + 1;
+
+      if (end >= word.length - 1) {
+        start = start + 1;
+        end = start + 1;
+      }
+    }
+
+    return [...acc, ...subsrts];
+  }, []);
+
+  substrings.forEach((str) => {
+    if (strs.every((s) => s.includes(str)) && maxStr.length < str.length) {
+      maxStr = str;
+    }
+  });
+
+  return maxStr;
 }
 
 console.log(
-  '!!SHOLD BE "???" longestCommonPrefix(["light","though","goods"])',
-  longestCommonPrefix(["flower", "flow", "flight"])
+  '!!SHOLD BE "???" findMaxIntersection(["light","though","goods"])',
+  findMaxIntersection(["light", "though", "goods"])
 );
 console.log(
-  '!!SHOLD BE "fl" longestCommonPrefix(["flower","flow","flight"])',
-  longestCommonPrefix(["flower", "flow", "flight"])
+  '!!SHOLD BE "fl" findMaxIntersection(["flower","flow","flight"])',
+  findMaxIntersection(["flower", "flow", "flight"])
 );
 console.log(
-  '!!SHOLD BE "" longestCommonPrefix(["dog","racecar","car"])',
-  longestCommonPrefix(["dog", "racecar", "car"])
+  '!!SHOLD BE "" findMaxIntersection(["dog","racecar","car"])',
+  findMaxIntersection(["dog", "racecar", "car"])
+);
+
+console.log(
+  '!!SHOLD BE "" findMaxIntersection(["kokoko","","test", "ok"])',
+  findMaxIntersection(["kokoko", "", "test", "ok"])
 );
