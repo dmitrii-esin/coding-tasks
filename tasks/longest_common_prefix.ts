@@ -1,51 +1,50 @@
-function findMaxIntersection(strs: string[]): string {
+function longestCommonPrefix(strs: string[]): string {
+  if (strs.length === 0) return "";
+  if (strs.length === 1) return strs[0];
   if (strs.some((word) => word.length === 0)) return "";
 
   let maxStr = "";
 
-  const substrings = strs.reduce((acc: string[], word: string): string[] => {
-    const subsrts: string[] = [];
-
-    let start = 0;
-    let end = 1;
-
-    while (start < word.length) {
-      subsrts.push(word.slice(start, end));
-
-      end = end + 1;
-
-      if (end >= word.length - 1) {
-        start = start + 1;
-        end = start + 1;
-      }
-    }
-
-    return [...acc, ...subsrts];
+  const commonStringsList = strs.reduce((acc: string[], word: string) => {
+    const commonStrings = generateCommonStrings(word);
+    return acc.concat(commonStrings);
   }, []);
 
-  substrings.forEach((str) => {
-    if (strs.every((s) => s.includes(str)) && maxStr.length < str.length) {
-      maxStr = str;
+  commonStringsList.forEach((commonStr: string) => {
+    if (strs.every((s) => s.startsWith(commonStr))) {
+      maxStr = commonStr.length > maxStr.length ? commonStr : maxStr;
     }
   });
 
   return maxStr;
 }
 
-console.log(
-  '!!SHOLD BE "???" findMaxIntersection(["light","though","goods"])',
-  findMaxIntersection(["light", "though", "goods"])
-);
-console.log(
-  '!!SHOLD BE "fl" findMaxIntersection(["flower","flow","flight"])',
-  findMaxIntersection(["flower", "flow", "flight"])
-);
-console.log(
-  '!!SHOLD BE "" findMaxIntersection(["dog","racecar","car"])',
-  findMaxIntersection(["dog", "racecar", "car"])
-);
+function generateCommonStrings(word: string): string[] {
+  const result: string[] = [];
+
+  for (let end = 1; end <= word.length; end++) {
+    result.push(word.slice(0, end));
+  }
+
+  return result;
+}
 
 console.log(
-  '!!SHOLD BE "" findMaxIntersection(["kokoko","","test", "ok"])',
-  findMaxIntersection(["kokoko", "", "test", "ok"])
-);
+  '!!longestCommonPrefix(["flower","flow","flight"])',
+  longestCommonPrefix(["flower", "flow", "flight"])
+); // "fl"
+
+console.log(
+  '!!longestCommonPrefix(["dog","racecar","car"])',
+  longestCommonPrefix(["dog", "racecar", "car"])
+); // ""
+
+console.log(
+  '!!longestCommonPrefix(["reflower","flow","flight"])',
+  longestCommonPrefix(["reflower", "flow", "flight"])
+); // ""
+
+console.log(
+  '!!longestCommonPrefix(["ab","a"])',
+  longestCommonPrefix(["ab", "a"])
+); // "a"
