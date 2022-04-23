@@ -25,4 +25,3 @@
 - two-pointer
 - backtracking
 - dp
-- backtracking
