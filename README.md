@@ -1,6 +1,8 @@
-# algorithms
+# Coding tasks
 
-## my notes
+> This repo includes my efforts, notes and examples of cracking codings tasks, algorithms and data structures based on **[Leetcode](https://leetcode.com/sunndeath/)** and **[Cracking the coding interview](https://www.crackingthecodinginterview.com/)** book
+
+## My notes
 
 ### stable / unstable (sorting by two or more different criteria)
 
