@@ -92,6 +92,24 @@
 //   return product;
 // }
 
+// const arrayPairSum = function (nums) {
+//   let i = 0;
+//   let j = nums.length - 1;
+  
+//   let minmax = 0;
+  
+//   while (i < j) {
+//       const curr = Math.min(nums[i], nums[j]) + Math.min(nums[i + 1], nums[j - 1]);
+      
+//       if (curr > minmax) minmax = curr;
+      
+//       i = i + 2;
+//       j = j - 2;
+//   }
+  
+//   return minmax;
+// }
+
 const arrayPairSum = function (nums: number[]): number {
   return nums
     .sort((a, b) => a - b)
