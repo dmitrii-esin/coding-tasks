@@ -21,7 +21,9 @@
 - choose appropriate additional data-structures if needed (hash map, array, linked list, queue, stack, tree, additional constant or variable etc.)
 
 ### list of technics
-- sliding window
+- sliding window 
 - two-pointer
 - backtracking
 - dp
+
+*main advive - usin technics like sliding-widow - choose appropriate strategy for the window or changing pointers
