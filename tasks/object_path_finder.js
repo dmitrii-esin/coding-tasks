@@ -12,20 +12,35 @@ const obj = {
   },
 };
 
+// const select = (obj, path) => {
+//   const list = path.split(".");
+
+//   let target = { ...obj };
+
+//   for (field of list) {
+//     const nextField = target[field];
+
+//     if (!nextField) return null;
+
+//     target = nextField;
+//   }
+
+//   return target;
+// };
+
 const select = (obj, path) => {
-  const list = path.split(".");
+  const pathList = path.split(".");
+  let currentField = obj;
 
-  let target = { ...obj };
-
-  for (field of list) {
-    const nextField = target[field];
-
-    if (!nextField) return null;
-
-    target = nextField;
+  for (let i = 0; i < pathList.length; i++) {
+    if (!currentField[pathList[i]]) {
+      return null;
+    } else {
+      currentField = currentField[pathList[i]];
+    }
   }
 
-  return target;
+  return currentField;
 };
 
 console.log(select(obj, "car")); // null
