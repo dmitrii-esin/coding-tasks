@@ -1,4 +1,4 @@
-// Linked List
+// // Linked List
 const createNode = (data) => ({
   next: null,
   data,
@@ -65,47 +65,47 @@ const remove = (head, data) => {
   return head;
 };
 
-// ********************************
+// // ********************************
 
-// Doubled Linked List
-const createNode = (data) => ({
-  next: null,
-  previous: null,
-  data,
-});
+// // Doubled Linked List
+// const createNode = (data) => ({
+//   next: null,
+//   previous: null,
+//   data,
+// });
 
-const insertAfter = (node, data) => {
-  const newNode = createNode(data);
+// const insertAfter = (node, data) => {
+//   const newNode = createNode(data);
 
-  newNode.next = node.next;
-  newNode.previous = node;
-  node.next && (node.next.previous = newNode);
-  node.next = newNode;
+//   newNode.next = node.next;
+//   newNode.previous = node;
+//   node.next && (node.next.previous = newNode);
+//   node.next = newNode;
 
-  return node;
-};
+//   return node;
+// };
 
-const insertBefore = (node, data) => {
-  const newNode = createNode(data);
+// const insertBefore = (node, data) => {
+//   const newNode = createNode(data);
 
-  newNode.next = node;
-  newNode.previous = node.previous;
-  node.previous && (node.previous.next = newNode);
-  node.previous = newNode;
+//   newNode.next = node;
+//   newNode.previous = node.previous;
+//   node.previous && (node.previous.next = newNode);
+//   node.previous = newNode;
 
-  return newNode;
-};
+//   return newNode;
+// };
 
-const removeNode = (node) => {
-  if (!node) return null;
+// const removeNode = (node) => {
+//   if (!node) return null;
 
-  node.previous && (node.previous.next = node.next);
-  node.next && (node.next.previous = node.previous);
+//   node.previous && (node.previous.next = node.next);
+//   node.next && (node.next.previous = node.previous);
 
-  return node;
-};
+//   return node;
+// };
 
-const remove = (head, data) => removeNode(getElement(head, data));
+// const remove = (head, data) => removeNode(getElement(head, data));
 
 // ********************************
 
@@ -114,3 +114,44 @@ const remove = (head, data) => removeNode(getElement(head, data));
 // How would you solve this problem if a temporary buffer is not allowed?
 // hint 1 - hast table is
 // hint 2 - two pointers
+
+// //TODO: 1 with extra space
+const removeDuplicates = (head) => {
+  const cash = {};
+
+  let currentNode = head;
+
+  while (currentNode !== null) {
+    cash[currentNode.data] = true;
+
+    if (currentNode.next === null) return head;
+
+    if (cash[currentNode.next.data]) {
+      currentNode.next = currentNode.next.next;
+    } else {
+      currentNode = currentNode.next;
+    }
+  }
+
+  return head;
+};
+
+//TODO: 2 with extra time
+// const removeDuplicates = (head) => {
+//   let slowNode = head;
+//   let fastNode = head.next;
+
+//   while (slowNode !== null) {
+//     if (slowNode.data === fastNode.data) {
+//       slowNode.next = slowNode.next.next;
+//       fastNode = slowNode.next.next;
+//     }
+
+//     if (fastNode === null) {
+//       slowNode = slowNode.next;
+//       fastNode = slowNode.next.next;
+//     }
+//   }
+
+//   return head;
+// };
