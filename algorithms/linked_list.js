@@ -115,7 +115,7 @@ const remove = (head, data) => {
 // hint 1 - hast table is
 // hint 2 - two pointers
 
-// //TODO: 1 with extra space
+// //TODO: 1 with extra space, no extra time
 const removeDuplicates = (head) => {
   const cash = {};
 
@@ -136,22 +136,31 @@ const removeDuplicates = (head) => {
   return head;
 };
 
-//TODO: 2 with extra time
-// const removeDuplicates = (head) => {
-//   let slowNode = head;
-//   let fastNode = head.next;
+//TODO: 2 with extra time, no extra space
+const removeDuplicates2 = (head) => {
+  let currentNode = head;
 
-//   while (slowNode !== null) {
-//     if (slowNode.data === fastNode.data) {
-//       slowNode.next = slowNode.next.next;
-//       fastNode = slowNode.next.next;
-//     }
+  while (currentNode !== null) {
+    let runner = currentNode;
 
-//     if (fastNode === null) {
-//       slowNode = slowNode.next;
-//       fastNode = slowNode.next.next;
-//     }
-//   }
+    while (runner.next !== null) {
+      if (runner.next.data === currentNode.data) {
+        runner.next = runner.next.next;
+      } else {
+        runner = runner.next;
+      }
+    }
+    currentNode = currentNode.next;
+  }
+};
 
-//   return head;
-// };
+const removeNodeFromTheMiddle = (node) => {
+  if (node === null || node.next === null) return false; // failure
+
+  let next = node.next;
+
+  node.data = next.data;
+  node.next = next.next;
+
+  return true; // success
+};
