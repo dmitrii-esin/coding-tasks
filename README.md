@@ -23,6 +23,8 @@
 ### list of technics
 - sliding window 
 - two-pointer
+
+```
 function fn(arr):
     left = 0
     right = arr.length - 1
@@ -33,7 +35,9 @@ function fn(arr):
             1. left++
             2. right--
             3. Both left++ and right--
+```
             
+```
 function fn(arr1, arr2):
     i = j = 0
     while i < arr1.length AND j < arr2.length:
@@ -51,6 +55,7 @@ function fn(arr1, arr2):
     while j < arr2.length:
         Do some logic here depending on the problem
         j++
+ ```
 - backtracking
 - dp
 
