@@ -1,4 +1,4 @@
-// Dynamic programing 
+// Dynamic programing
 // If we can divide the problem into indedepnent smaller problems
 
 // How to:
@@ -28,7 +28,7 @@
 // weight: 1
 // price: 6
 
-// Builded table: 
+// Builded table:
 //        1  2  3  4  5  6
 // water
 // book
@@ -36,7 +36,7 @@
 // jacet
 // camera
 
-// Processed table: 
+// Processed table:
 //        1  2  3  4  5  6
 // water  -  -  10 10 10 10
 // book   3  3  3  13 13 13
@@ -82,12 +82,12 @@
 const bagWeight = 6;
 
 const goodsList = [
-  {name: 'water', weight: 3, price: 10 },
-  {name: 'book', weight: 1, price: 3 },
-  {name: 'food', weight: 2, price: 9 },
-  {name: 'jacet', weight: 2, price: 5 },
-  {name: 'camera', weight: 1, price: 6 },
-]
+  { name: "water", weight: 3, price: 10 },
+  { name: "book", weight: 1, price: 3 },
+  { name: "food", weight: 2, price: 9 },
+  { name: "jacet", weight: 2, price: 5 },
+  { name: "camera", weight: 1, price: 6 },
+];
 
 const calcMaxGoodsList = (list, weight) => {
   let table = {};
@@ -98,11 +98,11 @@ const calcMaxGoodsList = (list, weight) => {
       const cell = { ...table[rowName], [j]: 0 };
 
       // console.log('!!!!i, j', i, j);
-  
+
       table = {
         ...table,
-        [rowName]: cell
-      }
+        [rowName]: cell,
+      };
     }
   }
 
@@ -119,10 +119,8 @@ const calcMaxGoodsList = (list, weight) => {
   // TODO: ...
 
   return result;
-}
+};
 
-console.log(
-  calcMaxGoodsList(goodsList, bagWeight)
-);
+console.log(calcMaxGoodsList(goodsList, bagWeight));
 
 // ['water', 'food', 'camera']

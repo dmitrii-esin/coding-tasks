@@ -1,54 +1,54 @@
 // Find student with max average grade
 
-const students = [
-  ["John", 96],
-  ["Bob", 77],
-  ["Alex", 87],
-  ["Bob", 3],
-  ["Peter", 89],
-  ["Bob", 11],
-  ["John", 122],
-  ["Alex", 1],
-];
+// const students = [
+//   ["John", 96],
+//   ["Bob", 77],
+//   ["Alex", 87],
+//   ["Bob", 3],
+//   ["Peter", 89],
+//   ["Bob", 11],
+//   ["John", 122],
+//   ["Alex", 1],
+// ];
 
-const findMaximumAverage = (list) => {
-  const [head, ...tail] = list;
+// const findMaximumAverage = (list) => {
+//   const [head, ...tail] = list;
 
-  const quantityMap = {};
-  const gradeMap = {};
+//   const quantityMap = {};
+//   const gradeMap = {};
 
-  list.forEach((student) => {
-    const [name, grade] = student;
-    if (quantityMap[name]) {
-      quantityMap[name]++;
-    } else {
-      quantityMap[name] = 1;
-    }
-  });
+//   list.forEach((student) => {
+//     const [name, grade] = student;
+//     if (quantityMap[name]) {
+//       quantityMap[name]++;
+//     } else {
+//       quantityMap[name] = 1;
+//     }
+//   });
 
-  list.forEach((student) => {
-    const [currentName, currentGrade] = student;
+//   list.forEach((student) => {
+//     const [currentName, currentGrade] = student;
 
-    if (gradeMap[currentName]) {
-      gradeMap[currentName] = gradeMap[currentName] + currentGrade;
-    } else {
-      gradeMap[currentName] = currentGrade;
-    }
-  });
+//     if (gradeMap[currentName]) {
+//       gradeMap[currentName] = gradeMap[currentName] + currentGrade;
+//     } else {
+//       gradeMap[currentName] = currentGrade;
+//     }
+//   });
 
-  let max = head;
+//   let max = head;
 
-  for (let currentName in gradeMap) {
-    const [, maxGrade] = max;
-    const currentMaxGrade = gradeMap[currentName] / quantityMap[currentName];
+//   for (let currentName in gradeMap) {
+//     const [, maxGrade] = max;
+//     const currentMaxGrade = gradeMap[currentName] / quantityMap[currentName];
 
-    if (currentMaxGrade > maxGrade) {
-      max = [currentName, currentMaxGrade];
-    }
-  }
+//     if (currentMaxGrade > maxGrade) {
+//       max = [currentName, currentMaxGrade];
+//     }
+//   }
 
-  return max;
-};
+//   return max;
+// };
 
 // const findMaximumAverage = (list) => {
 //   const quantityMap = {};
@@ -90,7 +90,7 @@ const findMaximumAverage = (list) => {
 //   return max;
 // };
 
-console.log(findMaximumAverage(students)); // ['John', 109]
+// console.log(findMaximumAverage(students)); // ['John', 109]
 
 // const findMaximumAverage = (list) => {
 //   const quantityMap = {};
@@ -128,3 +128,91 @@ console.log(findMaximumAverage(students)); // ['John', 109]
 // }
 
 // console.log(findMaximumAverage(students)) // ['John', 109]
+
+// ###############################
+
+// Find student with max average grade
+
+const data = [
+  ["John", 96],
+  ["Bob", 77],
+  ["Alex", 87],
+  ["Bob", 3],
+  ["Peter", 89],
+  ["Bob", 11],
+  ["John", 122],
+  ["Alex", 1],
+];
+
+// const findMaximumAverage = (students) => {
+//   //TODO: I. generate grades count map
+//   //TODO: II. generate grades map
+//   const gradesCountMap = {};
+//   const gradesMap = {};
+
+//   for (let i = 0; i < students.length; i++) {
+//     const [name, grade] = students[i];
+
+//     if (!gradesCountMap[name]) {
+//       gradesCountMap[name] = 1;
+//       gradesMap[name] = grade;
+//     } else {
+//       gradesCountMap[name] = gradesCountMap[name] + 1;
+//       gradesMap[name] = gradesMap[name] + grade;
+//     }
+//   }
+
+//   //TODO: III. calc the student with max average grade
+//   const max = ["", 0];
+
+//   for (let studentName in gradesMap) {
+//     const [_, grade] = max;
+//     const currentGrade = gradesMap[studentName] / gradesCountMap[studentName];
+
+//     if (currentGrade > grade) {
+//       max[0] = studentName;
+//       max[1] = currentGrade;
+//     }
+//   }
+
+//   return max;
+// };
+
+const findMaximumAverage = (students) => {
+  const gradesHash = {};
+  const occurencies = {};
+
+  for (let i = 0; i < students.length; i++) {
+    const [name, grade] = students[i];
+
+    if (!gradesHash[name]) {
+      gradesHash[name] = [name, grade];
+    } else {
+      gradesHash[name] = [name, grade + gradesHash[name][1]];
+    }
+
+    if (!occurencies[name]) {
+      occurencies[name] = 1;
+    } else {
+      occurencies[name] = occurencies[name] + 1;
+    }
+  }
+
+  let ans = ["", 0];
+
+  console.log("!!gradesHash, occurencies", gradesHash, occurencies);
+
+  for (let student in occurencies) {
+    const occurence = occurencies[student];
+    const product = gradesHash[student][1] / occurence;
+
+    if (product > ans[1]) {
+      ans = [student, product];
+    }
+  }
+
+  return ans;
+};
+
+console.log(findMaximumAverage(data));
+// ['John', 109]
