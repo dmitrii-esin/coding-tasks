@@ -74,3 +74,41 @@ console.log(
   twoSum([2, 7, 11, 15], 9)
 );
 console.log("!!SHOLD BE [1,3] twoSum([2,3,4], 6)", twoSum([2, 3, 4], 6));
+
+//TODO:!!! hash map approach
+
+// const twoSum = function (nums, target) {
+//   const hash = {};
+
+//   for (let i = 0; i < nums.length; i++) {
+//     let complement = target - nums[i];
+
+//     if (hash[complement] !== undefined) {
+//       return [hash[complement], i];
+//     }
+
+//     hash[nums[i]] = i;
+//   }
+
+//   return [-1, -1];
+// };
+
+//TODO:!!! two pointer approach approach
+// function twoSum(numbers: number[], target: number): number[] {
+//   let left = 0;
+//   let right = numbers.length - 1;
+
+//   while (left < right) {
+//       const product = numbers[left] + numbers[right];
+
+//       if (product === target) {
+//           return [left + 1, right + 1];
+//       } else if (product < target) {
+//           left += 1;
+//       } else if (product > target) {
+//           right -= 1;
+//       }
+//   }
+
+//   return [-1, -1];
+// };
