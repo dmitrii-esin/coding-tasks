@@ -75,3 +75,33 @@ const intersection = (nums) => {
 
   return ans;
 };
+
+function intersection(nums: number[][]): number[] {
+  const count = new Map();
+
+  nums.forEach((numArr) => {
+    let tempCount = new Map();
+
+    numArr.forEach((num) => {
+      if (!tempCount.has(num)) {
+        count.set(num, (count.get(num) || 0) + 1);
+      }
+    });
+  });
+
+  const ans: number[] = [];
+
+  count.forEach((value, key) => {
+    if (value === nums.length) ans.push(key);
+  });
+
+  console.log("!!!count", count);
+
+  // for in/of filter, collect acc
+
+  //const ans: number[] = temp.filter
+
+  //return ans.sort((a, b) => b - a);
+
+  return ans.sort((a, b) => a - b);
+}
