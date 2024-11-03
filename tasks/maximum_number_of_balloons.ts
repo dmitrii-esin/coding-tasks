@@ -28,39 +28,71 @@
 // Hint 2
 // Find the letter than can make the minimum number of instances of the word "balloon".
 
-// This problem can be interestingly related to production management. Assume there is an industry that produces a product X. The product X can be produced by assembling one instance of each of five different parts. We have some fixed quantity of each of these parts, then the maximum number of product X that can be produced will be equal to the quantity of that part which is available in the least quantity. This least available part is known as the bottleneck resource.
-
+// This problem can be interestingly related to production management. Assume there is an industry that produces a product X. The product X can be produced by assembling one instance of each of five different parts. We have some fixed quantity of each of these p  arts, then the maximum number of product X that can be produced will be equal to the quantity of that part which is available in the least quantity. This least available part is known as the bottleneck resource.
 function maxNumberOfBalloons(text: string): number {
-  const counts = new Map();
-  const eq = new Map([
+  let eq = new Map([
     ["b", 1],
     ["a", 1],
     ["l", 2],
     ["o", 2],
     ["n", 1],
   ]);
-  let ans = Infinity;
+
+  let count = new Map();
 
   // Count the frequency of relevant characters
   for (let i = 0; i < text.length; i++) {
     if (eq.has(text[i])) {
-      counts.set(text[i], (counts.get(text[i]) || 0) + 1);
+      count.set(text[i], (count.get(text[i]) || 0) + 1);
     }
   }
 
+  let ans = Infinity;
+
   // Calculate the maximum number of "balloon" that can be formed
   eq.forEach((value, key) => {
-    let prod = counts.get(key) || 0;
-    if (key === "l" || key === "o") {
-      prod = Math.floor(prod / 2);
+    if (!count.has(key) || count.get(key) < value) {
+      ans = 0;
+    } else {
+      const parsedValue = Math.floor(count.get(key) / value);
+      ans = Math.min(ans, parsedValue);
     }
-    ans = Math.min(ans, prod);
   });
-
-  console.log("!!counts,eq", counts, eq);
 
   return ans;
 }
+
+// function maxNumberOfBalloons(text: string): number {
+//   const counts = new Map();
+//   const eq = new Map([
+//     ["b", 1],
+//     ["a", 1],
+//     ["l", 2],
+//     ["o", 2],
+//     ["n", 1],
+//   ]);
+//   let ans = Infinity;
+
+//   // Count the frequency of relevant characters
+//   for (let i = 0; i < text.length; i++) {
+//     if (eq.has(text[i])) {
+//       counts.set(text[i], (counts.get(text[i]) || 0) + 1);
+//     }
+//   }
+
+//   // Calculate the maximum number of "balloon" that can be formed
+//   eq.forEach((value, key) => {
+//     let prod = counts.get(key) || 0;
+//     if (key === "l" || key === "o") {
+//       prod = Math.floor(prod / 2);
+//     }
+//     ans = Math.min(ans, prod);
+//   });
+
+//   console.log("!!counts,eq", counts, eq);
+
+//   return ans;
+// }
 
 console.log(
   '!!maxNumberOfBalloons("nlaebolko")',
