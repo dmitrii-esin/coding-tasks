@@ -35,85 +35,55 @@
 function wordPattern(pattern: string, s: string): boolean {
   const patternMap = new Map();
   const wordsMap = new Map();
-
-  const occurrences = new Map();
-
-  // type SchemaEntry = { [key: string]: string };
-
-  // const patternToWord: SchemaEntry[] = [];
-  // const wordToPattern: SchemaEntry[] = [];
+  const wordIndexMap = new Map();
 
   const sentence = s.split(" ");
-
-  let flag = true;
 
   if (sentence.length !== pattern.length) {
     return false;
   }
 
+  // check the order of words in the sentence according to pattern
+
   for (let i = 0; i < sentence.length; i++) {
-    wordsMap.set(sentence[i], (wordsMap.get(sentence[i]) || 0) + 1);
-    patternMap.set(pattern[i], (patternMap.get(pattern[i]) || 0) + 1);
+    const word = sentence[i];
+    const letter = pattern[i];
 
-    occurrences.set(pattern[i], (occurrences.get(pattern[i]) || []).concat(i));
+    if (patternMap.has(letter) && patternMap.get(letter) !== word) {
+      return false;
+    }
 
-    // patternToWord.push({ [pattern[i]]: sentence[i] });
-    // wordToPattern.push({ [sentence[i]]: pattern[i] });
+    if (wordsMap.has(word) && wordsMap.get(word) !== letter) {
+      return false;
+    }
+
+    patternMap.set(letter, word);
+    wordsMap.set(word, letter);
+    wordIndexMap.set(word, i);
   }
 
-  const params = {
-    pattern,
-    sentence,
-    occurrences,
-    // wordsMap,
-    patternMap,
-    // patternToWord,
-    // wordToPattern,
-  };
-
-  console.log("!!params", params);
-
-  // if (
-  //   Array.from(wordsMap.values()).length !==
-  //   Array.from(patternMap.values()).length
-  // ) {
-  //   // flag = false;
-  //   return false;
-  // }
-
-  sentence.forEach((word, index) => {
-    // const wordCount = wordsMap.get(word);
-    // const currentPattern = wordToPattern[index][word];
-    // const patternCount = patternMap.get(currentPattern);
-    // if (wordCount !== patternCount) {
-    //   flag = false;
-    // }
-  });
-
-  //how to check the order of words in the sentence according to pattern?
-
-  return flag;
+  return true;
 }
 
-// console.log(
-//   '!!wordPattern("abba", "dog cat cat dog")',
-//   wordPattern("abba", "dog cat cat dog")
-// ); // true
+console.log(
+  '!!wordPattern("abba", "dog cat cat dog")',
+  wordPattern("abba", "dog cat cat dog")
+); // true
 
-// console.log(
-//   '!!wordPattern("abba", "dog cat cat fish")',
-//   wordPattern("abba", "dog cat cat fish")
-// ); // false
+console.log(
+  '!!wordPattern("abba", "dog cat cat fish")',
+  wordPattern("abba", "dog cat cat fish")
+); // false
 
-// console.log(
-//   '!!wordPattern("aaaa", "dog cat cat dog")',
-//   wordPattern("aaaa", "dog cat cat dog")
-// ); // false
+console.log(
+  '!!wordPattern("aaaa", "dog cat cat dog")',
+  wordPattern("aaaa", "dog cat cat dog")
+); // false
 
-// console.log(
-//   '!!wordPattern("aba", "dog cat cat")',
-//   wordPattern("aba", "dog cat cat")
-// ); // false
+console.log(
+  '!!wordPattern("aba", "dog cat cat")',
+  wordPattern("aba", "dog cat cat")
+); // false
 
 console.log(
   '!!wordPattern("abab", "dog cat cat dog")',
